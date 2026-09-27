@@ -1,0 +1,3513 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ALEJO & ALLISON — SAVE 01</title>
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    --pink: #ff6fae;
+    --pink-light: #ffb6d5;
+    --pink-dark: #b52f68;
+
+    --purple: #9b5cff;
+    --purple-dark: #35165e;
+
+    --green: #65ff9a;
+
+    --red: #ff304f;
+    --red-dark: #4d0812;
+
+    --white: #ffffff;
+    --gray: #bdbdbd;
+    --black: #050507;
+
+    --transition: 700ms cubic-bezier(.77,0,.18,1);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+body {
+
+    background: #000;
+    color: white;
+
+    font-family:
+        "Courier New",
+        Courier,
+        monospace;
+
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+#particles {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   CRT
+========================================================= */
+
+.crt {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 999;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,0.015) 50%,
+            rgba(0,0,0,0.04) 50%
+        );
+
+    background-size: 100% 4px;
+
+    mix-blend-mode: overlay;
+
+}
+
+.crt::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 45%,
+            rgba(0,0,0,.65) 100%
+        );
+
+}
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+.scene {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: scale(1.08);
+
+    transition:
+        opacity var(--transition),
+        transform var(--transition),
+        visibility var(--transition);
+
+    z-index: 5;
+
+}
+
+.scene.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: scale(1);
+
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #26102e 0%,
+            #09050d 45%,
+            #000 100%
+        );
+
+}
+
+.intro-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+
+    animation:
+        introFloat 4s ease-in-out infinite;
+
+}
+
+@keyframes introFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+.heart {
+
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 30px;
+
+    background: var(--pink);
+
+    transform: rotate(45deg);
+
+    position: relative;
+
+    box-shadow:
+        0 0 20px var(--pink),
+        0 0 60px rgba(255,111,174,.6);
+
+    animation:
+        heartbeat 1.3s infinite,
+        heartGlow 2s infinite alternate;
+
+}
+
+.heart::before,
+.heart::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 65px;
+    height: 65px;
+
+    background: var(--pink);
+
+    border-radius: 50%;
+
+}
+
+.heart::before {
+
+    left: -32px;
+
+}
+
+.heart::after {
+
+    top: -32px;
+
+}
+
+@keyframes heartbeat {
+
+    0%, 100% {
+
+        transform:
+            rotate(45deg)
+            scale(1);
+
+    }
+
+    15% {
+
+        transform:
+            rotate(45deg)
+            scale(1.18);
+
+    }
+
+    30% {
+
+        transform:
+            rotate(45deg)
+            scale(1);
+
+    }
+
+    45% {
+
+        transform:
+            rotate(45deg)
+            scale(1.1);
+
+    }
+
+}
+
+@keyframes heartGlow {
+
+    from {
+
+        filter: brightness(1);
+
+    }
+
+    to {
+
+        filter: brightness(1.5);
+
+    }
+
+}
+
+.intro-content h1 {
+
+    font-size:
+        clamp(35px, 7vw, 80px);
+
+    letter-spacing: 8px;
+
+    text-shadow:
+        0 0 10px var(--pink),
+        0 0 30px var(--pink);
+
+    margin-bottom: 12px;
+
+}
+
+.subtitle {
+
+    color: #aaa;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 50px;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.game-button {
+
+    position: relative;
+
+    background: transparent;
+
+    border: 2px solid white;
+
+    color: white;
+
+    padding: 15px 45px;
+
+    font-family: inherit;
+
+    font-size: 18px;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+    overflow: hidden;
+
+}
+
+.game-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: white;
+
+    transform: translateX(-105%);
+
+    transition: .3s;
+
+    z-index: -1;
+
+}
+
+.game-button:hover {
+
+    color: black;
+
+    box-shadow:
+        0 0 20px white,
+        0 0 50px rgba(255,255,255,.3);
+
+    transform: scale(1.05);
+
+}
+
+.game-button:hover::before {
+
+    transform: translateX(0);
+
+}
+
+.game-button:active {
+
+    transform: scale(.95);
+
+}
+
+
+/* =========================================================
+   SCENE CONTENT
+========================================================= */
+
+.content {
+
+    width: min(900px, 95vw);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 40px;
+
+}
+
+.content::-webkit-scrollbar {
+
+    width: 5px;
+
+}
+
+.content::-webkit-scrollbar-thumb {
+
+    background: #444;
+
+}
+
+
+/* =========================================================
+   UNDERTALE
+========================================================= */
+
+#undertale {
+
+    background:
+        radial-gradient(
+            circle,
+            #171717 0%,
+            #030303 70%
+        );
+
+}
+
+.rpg-box {
+
+    border: 3px solid white;
+
+    padding: 30px;
+
+    background:
+        rgba(0,0,0,.8);
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,.08),
+        inset 0 0 30px rgba(255,255,255,.03);
+
+}
+
+.rpg-title {
+
+    font-size: 28px;
+
+    margin-bottom: 25px;
+
+    color: var(--pink);
+
+}
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(150px,1fr)
+        );
+
+    gap: 10px;
+
+    margin-bottom: 30px;
+
+}
+
+.stat {
+
+    border: 1px solid #555;
+
+    padding: 12px;
+
+    background: #090909;
+
+}
+
+.stat span {
+
+    color: #888;
+
+}
+
+.dialogue {
+
+    min-height: 180px;
+
+    border-top: 1px solid #444;
+
+    padding-top: 25px;
+
+    line-height: 1.8;
+
+    font-size: 17px;
+
+}
+
+.cursor {
+
+    display: inline-block;
+
+    width: 8px;
+
+    height: 18px;
+
+    background: white;
+
+    animation: blink .8s infinite;
+
+}
+
+@keyframes blink {
+
+    50% {
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================================
+   UNDERTALE MINI GAME
+========================================================= */
+
+.battle-area {
+
+    position: relative;
+
+    width: min(500px, 90vw);
+
+    height: 260px;
+
+    margin: 25px auto;
+
+    border: 3px solid white;
+
+    background:
+        radial-gradient(
+            circle,
+            #151515 0%,
+            #030303 80%
+        );
+
+    overflow: hidden;
+
+    box-shadow:
+        inset 0 0 30px rgba(255,255,255,.04),
+        0 0 20px rgba(255,255,255,.08);
+
+}
+
+.battle-heart {
+
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    background: var(--red);
+
+    transform: rotate(45deg);
+
+    left: 50%;
+    top: 50%;
+
+    margin-left: -9px;
+    margin-top: -9px;
+
+    z-index: 5;
+
+    box-shadow:
+        0 0 8px var(--red),
+        0 0 20px rgba(255,48,79,.7);
+
+}
+
+.battle-heart::before,
+.battle-heart::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    background: var(--red);
+
+    border-radius: 50%;
+
+}
+
+.battle-heart::before {
+
+    left: -9px;
+
+}
+
+.battle-heart::after {
+
+    top: -9px;
+
+}
+
+.battle-projectile {
+
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    background: white;
+
+    transform: rotate(45deg);
+
+    box-shadow:
+        0 0 8px white,
+        0 0 15px rgba(255,255,255,.5);
+
+}
+
+.battle-message {
+
+    text-align: center;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    margin-top: 10px;
+
+    min-height: 20px;
+
+}
+
+.battle-success {
+
+    color: var(--green);
+
+    text-shadow:
+        0 0 10px var(--green);
+
+    animation:
+        successPulse 1s infinite alternate;
+
+}
+
+@keyframes successPulse {
+
+    from {
+        opacity: .7;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+.battle-damage {
+
+    animation:
+        damageFlash .25s;
+
+}
+
+@keyframes damageFlash {
+
+    0% {
+
+        filter: brightness(1);
+
+    }
+
+    50% {
+
+        filter: brightness(4);
+
+    }
+
+    100% {
+
+        filter: brightness(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   DELTARUNE
+========================================================= */
+
+#deltarune {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #251040,
+            #0a0312 65%,
+            #000
+        );
+
+}
+
+.dark-world {
+
+    text-align: center;
+
+}
+
+.dark-world h2 {
+
+    font-size:
+        clamp(30px,6vw,65px);
+
+    color: #b477ff;
+
+    text-shadow:
+        0 0 10px #8b3cff,
+        0 0 40px #4d00a8;
+
+    margin-bottom: 30px;
+
+}
+
+.dark-text {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    line-height: 2;
+
+    color: #ddd;
+
+    font-size: 18px;
+
+}
+
+.purple-orb {
+
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #c48cff;
+
+    box-shadow:
+        0 0 15px #a44cff;
+
+    animation:
+        orbFloat linear infinite;
+
+}
+
+@keyframes orbFloat {
+
+    from {
+
+        transform:
+            translateY(110vh)
+            translateX(0);
+
+        opacity: 0;
+
+    }
+
+    20% {
+
+        opacity: 1;
+
+    }
+
+    80% {
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        transform:
+            translateY(-20vh)
+            translateX(100px);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================================
+   FLOWERS
+========================================================= */
+
+#flowers {
+
+    background:
+        linear-gradient(
+            to bottom,
+            #100612,
+            #160812 50%,
+            #050205
+        );
+
+}
+
+.flower-world {
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+.flower {
+
+    position: absolute;
+
+    font-size: 30px;
+
+    color: #ff83b8;
+
+    filter:
+        drop-shadow(0 0 10px #ff4e9b);
+
+    animation:
+        flowerFloat 5s ease-in-out infinite;
+
+}
+
+@keyframes flowerFloat {
+
+    0%,100% {
+
+        transform:
+            translateY(0)
+            rotate(-5deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-20px)
+            rotate(5deg);
+
+    }
+
+}
+
+.flower-world h2 {
+
+    font-size: 45px;
+
+    color: #ff91bf;
+
+    text-shadow:
+        0 0 15px #ff4d99;
+
+}
+
+.flower-text {
+
+    margin: 30px auto;
+
+    max-width: 700px;
+
+    font-size: 18px;
+
+    line-height: 2;
+
+}
+
+
+/* =========================================================
+   RESIDENT EVIL
+========================================================= */
+
+#resident {
+
+    background:
+        radial-gradient(
+            circle,
+            #30030a,
+            #090001 70%
+        );
+
+}
+
+#resident.danger {
+
+    animation:
+        dangerFlash .15s infinite;
+
+}
+
+@keyframes dangerFlash {
+
+    0%,100% {
+
+        filter: none;
+
+    }
+
+    50% {
+
+        filter:
+            brightness(1.3)
+            contrast(1.4);
+
+    }
+
+}
+
+.report {
+
+    border: 2px solid var(--red);
+
+    padding: 35px;
+
+    background:
+        rgba(40,0,5,.8);
+
+    box-shadow:
+        0 0 30px rgba(255,0,40,.25);
+
+    position: relative;
+
+}
+
+.report::before {
+
+    content: "CLASSIFIED";
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+    color: var(--red);
+
+    border: 1px solid var(--red);
+
+    padding: 5px 10px;
+
+    transform: rotate(-5deg);
+
+    opacity: .7;
+
+}
+
+.report h2 {
+
+    color: var(--red);
+
+    font-size: 35px;
+
+    margin-bottom: 30px;
+
+    text-shadow:
+        0 0 10px red;
+
+}
+
+.report-line {
+
+    margin: 15px 0;
+
+    color: #ddd;
+
+}
+
+.report-line strong {
+
+    color: #ff697c;
+
+}
+
+.warning {
+
+    margin-top: 30px;
+
+    padding: 20px;
+
+    border: 1px dashed var(--red);
+
+    color: #ff7180;
+
+    text-align: center;
+
+    animation:
+        warningBlink 1.5s infinite;
+
+}
+
+@keyframes warningBlink {
+
+    50% {
+
+        opacity: .5;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+#save {
+
+    background:
+        radial-gradient(
+            circle,
+            #101b15,
+            #020403 70%
+        );
+
+}
+
+.save-screen {
+
+    text-align: center;
+
+}
+
+.save-icon {
+
+    font-size: 60px;
+
+    color: var(--green);
+
+    text-shadow:
+        0 0 20px var(--green);
+
+    margin-bottom: 25px;
+
+    animation:
+        savePulse 2s infinite;
+
+}
+
+@keyframes savePulse {
+
+    50% {
+
+        transform: scale(1.15);
+
+        text-shadow:
+            0 0 50px var(--green);
+
+    }
+
+}
+
+.save-screen h2 {
+
+    color: var(--green);
+
+    font-size: 40px;
+
+    margin-bottom: 20px;
+
+}
+
+.save-screen p {
+
+    color: #aaa;
+
+    margin-bottom: 35px;
+
+}
+
+.save-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+}
+
+.save-btn {
+
+    background: transparent;
+
+    border: 2px solid white;
+
+    color: white;
+
+    padding: 12px 35px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.save-btn:hover {
+
+    background: white;
+
+    color: black;
+
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+#final {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #2a0c1d,
+            #070208 65%,
+            #000
+        );
+
+}
+
+.final-letter {
+
+    width: min(750px, 95vw);
+
+    padding: 50px;
+
+    border: 1px solid rgba(255,255,255,.2);
+
+    background:
+        rgba(10,5,10,.75);
+
+    box-shadow:
+        0 0 60px rgba(255,105,174,.1);
+
+    text-align: center;
+
+}
+
+.final-letter h1 {
+
+    color: var(--pink);
+
+    font-size:
+        clamp(30px,5vw,55px);
+
+    margin-bottom: 30px;
+
+    text-shadow:
+        0 0 15px var(--pink);
+
+}
+
+.final-letter p {
+
+    line-height: 2;
+
+    color: #eee;
+
+    margin: 18px 0;
+
+    font-size: 17px;
+
+}
+
+.signature {
+
+    margin-top: 40px;
+
+    color: var(--pink-light);
+
+    font-size: 22px;
+
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+========================================================= */
+
+.next-container {
+
+    margin-top: 35px;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   SCREEN EFFECTS
+========================================================= */
+
+.flash {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: white;
+
+    z-index: 1000;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+.flash.active {
+
+    animation:
+        flashEffect .6s;
+
+}
+
+@keyframes flashEffect {
+
+    0% {
+
+        opacity: 0;
+
+    }
+
+    20% {
+
+        opacity: .8;
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+    }
+
+}
+
+.glitch {
+
+    animation:
+        glitch .3s;
+
+}
+
+@keyframes glitch {
+
+    0% {
+
+        transform: translate(0);
+
+    }
+
+    20% {
+
+        transform: translate(-8px, 4px);
+
+    }
+
+    40% {
+
+        transform: translate(8px, -4px);
+
+    }
+
+    60% {
+
+        transform: translate(-4px, -2px);
+
+    }
+
+    80% {
+
+        transform: translate(4px, 2px);
+
+    }
+
+    100% {
+
+        transform: translate(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:600px) {
+
+    .content {
+
+        padding: 20px;
+
+    }
+
+    .rpg-box,
+    .report,
+    .final-letter {
+
+        padding: 25px;
+
+    }
+
+    .intro-content h1 {
+
+        letter-spacing: 4px;
+
+    }
+
+    .save-buttons {
+
+        flex-direction: column;
+
+    }
+
+    .battle-area {
+
+        height: 220px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =======================================================
+     PARTICLES
+======================================================= -->
+
+<canvas id="particles"></canvas>
+
+<div class="crt"></div>
+
+<div class="flash" id="flash"></div>
+
+
+<!-- =======================================================
+     INTRO
+======================================================= -->
+
+<section id="intro" class="scene active">
+
+    <div class="intro-content">
+
+        <div class="heart"></div>
+
+        <h1>ALEJO & ALLISON</h1>
+
+        <p class="subtitle">
+
+            ONE SAVE FILE • ONE STORY • TWO IDIOTS
+
+        </p>
+
+        <button
+            class="game-button"
+            id="startButton"
+            onclick="startExperience()"
+        >
+
+            START
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     UNDERTALE
+======================================================= -->
+
+<section id="undertale" class="scene">
+
+    <div class="content">
+
+        <div class="rpg-box">
+
+            <div class="rpg-title">
+
+                ♥ ALEJO & ALLISON
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <span>LV</span>
+                    <br>
+
+                    ∞
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>HP</span>
+                    <br>
+
+                    100 / 100
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>EXP</span>
+                    <br>
+
+                    0
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span>LOVE</span>
+                    <br>
+
+                    1
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="dialogue"
+                id="undertaleText"
+            ></div>
+
+
+            <!-- =================================================
+                 UNDERTALE MINI GAME
+            ================================================== -->
+
+            <div
+                class="battle-area"
+                id="battleArea"
+            >
+
+                <div
+                    class="battle-heart"
+                    id="battleHeart"
+                ></div>
+
+            </div>
+
+
+            <div
+                class="battle-message"
+                id="battleMessage"
+            >
+
+                ♥ Mueve el corazón y sobrevive...
+
+            </div>
+
+
+            <div class="next-container">
+
+                <button
+                    class="game-button"
+                    onclick="goToScene('deltarune')"
+                >
+
+                    CONTINUAR
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     DELTARUNE
+======================================================= -->
+
+<section id="deltarune" class="scene">
+
+    <div id="purpleParticles"></div>
+
+    <div class="content">
+
+        <div class="dark-world">
+
+            <h2>MUNDO IDEAL</h2>
+
+            <p class="dark-text">
+
+                Hay lugares que parecen existir únicamente
+                cuando dos personas deciden quedarse un rato
+                más.
+
+                <br><br>
+
+                Nuestro propio pequeño Mundo ideal.
+
+                <br><br>
+
+                Un lugar donde podemos ser nosotros mismos,
+                decir estupideces, reírnos por cosas que
+                probablemente nadie más entendería y simplemente
+                estar juntos soñando con el dia que no haya
+                distancia entre nosotros.
+
+                <br><br>
+
+                Y si alguna vez tengo que cruzar un bosque
+                lleno de monstruos...
+
+                <br><br>
+
+                <strong>
+
+                    sé perfectamente hacia dónde seguiría
+                    caminando.
+
+                </strong>
+
+            </p>
+
+
+            <div class="next-container">
+
+                <button
+                    class="game-button"
+                    onclick="goToScene('flowers')"
+                >
+
+                    SEGUIR CAMINANDO
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FLOWERS
+======================================================= -->
+
+<section id="flowers" class="scene">
+
+    <div class="content">
+
+        <div class="flower-world">
+
+
+            <div
+                class="flower"
+                style="top:-80px;left:5%;"
+            >
+
+                ✿
+
+            </div>
+
+
+            <div
+                class="flower"
+                style="
+                    top:40px;
+                    right:5%;
+                    animation-delay:1s;
+                "
+            >
+
+                ✿
+
+            </div>
+
+
+            <div
+                class="flower"
+                style="
+                    bottom:-50px;
+                    left:15%;
+                    animation-delay:2s;
+                "
+            >
+
+                ✿
+
+            </div>
+
+
+            <div
+                class="flower"
+                style="
+                    bottom:-80px;
+                    right:20%;
+                    animation-delay:.5s;
+                "
+            >
+
+                ✿
+
+            </div>
+
+
+            <h2>PARA ALLISON</h2>
+
+
+            <p class="flower-text">
+
+                Las flores no necesitan que el mundo sea
+                perfecto para crecer.
+
+                <br><br>
+
+                A veces llueve.
+
+                A veces hace frío.
+
+                A veces el suelo no parece el lugar ideal.
+
+                <br><br>
+
+                Y aun así...
+
+                <br>
+
+                crecen.
+
+                <br><br>
+
+                Creo que nosotros somos un poco así.
+
+                <br><br>
+
+                No necesito que nuestra historia sea perfecta.
+
+                Solo quiero seguir cuidándola.
+
+                Seguir riéndome contigo.
+
+                Seguir conociéndote.
+
+                Seguir viendo qué podemos construir juntos.
+
+                <br><br>
+
+                Y si pudiera darte una flor por cada vez
+                que pienso en ti...
+
+                <br><br>
+
+                probablemente ya habría destruido
+                el planeta.
+
+            </p>
+
+
+            <div class="next-container">
+
+                <button
+                    class="game-button"
+                    onclick="goToScene('resident')"
+                >
+
+                    ABRIR ARCHIVO
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     RESIDENT EVIL
+======================================================= -->
+
+<section id="resident" class="scene">
+
+    <div class="content">
+
+        <div class="report">
+
+            <h2>
+
+                R.E. INCIDENT REPORT
+
+            </h2>
+
+
+            <div class="report-line">
+
+                <strong>SUJETO:</strong>
+
+                Allison
+
+            </div>
+
+
+            <div class="report-line">
+
+                <strong>NIVEL DE AMENAZA:</strong>
+
+                CRÍTICO
+
+            </div>
+
+
+            <div class="report-line">
+
+                <strong>RIESGO:</strong>
+
+                Extremadamente adorable
+
+            </div>
+
+
+            <div class="report-line">
+
+                <strong>SÍNTOMAS:</strong>
+
+                <br>
+
+                • Sonreír mirando una pantalla.
+
+                <br>
+
+                • Pensar demasiado en ella.
+
+                <br>
+
+                • Querer contarle absolutamente todo.
+
+                <br>
+
+                • Perder la capacidad de actuar normal.
+
+            </div>
+
+
+            <div class="report-line">
+
+                <strong>TRATAMIENTO:</strong>
+
+                <br>
+
+                Permanecer cerca del sujeto
+                indefinidamente.
+
+            </div>
+
+
+            <div class="warning">
+
+                ⚠ WARNING ⚠
+
+                <br><br>
+
+                No existe vacuna conocida.
+
+                <br>
+
+                El paciente tampoco parece querer
+                recuperarse.
+
+            </div>
+
+
+            <div class="next-container">
+
+                <button
+                    class="game-button"
+                    onclick="activateDanger()"
+                >
+
+                    ACEPTAR RIESGO
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     SAVE
+======================================================= -->
+
+<section id="save" class="scene">
+
+    <div class="save-screen">
+
+        <div class="save-icon">
+
+            ★
+
+        </div>
+
+
+        <h2>SAVE POINT</h2>
+
+
+        <p>
+
+            ALEJO & ALLISON
+
+            <br>
+
+            ANNIVERSARY — 01 week
+
+        </p>
+
+
+        <p>
+
+            Aucune autre vie que j'aurais pu avoir ne m'intéresse,
+            car seule celle avec toi vaut la peine d'être vécue.
+
+        </p>
+
+
+        <div class="save-buttons">
+
+            <button
+                class="save-btn"
+                onclick="saveYes()"
+            >
+
+                YES
+
+            </button>
+
+
+            <button
+                class="save-btn"
+                id="noButton"
+                onmouseenter="moveNoButton()"
+                onclick="moveNoButton()"
+            >
+
+                NO
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL
+======================================================= -->
+
+<section id="final" class="scene">
+
+    <div class="final-letter">
+
+        <h1>GAME SAVED</h1>
+
+
+        <p>
+
+            Allison...
+
+        </p>
+
+
+        <p>
+
+            Si pudiera guardar nuestra historia en un
+            archivo, probablemente tendría miedo de que
+            algún día se corrompiera.
+
+        </p>
+
+
+        <p>
+
+            Así que prefiero guardarla de otra manera:
+
+            en todos los momentos que hemos vivido,
+
+            en todas las conversaciones,
+
+            en todas las risas
+
+            y en cada pequeño recuerdo que hemos
+            ido construyendo.
+
+        </p>
+
+
+        <p>
+
+            No sé exactamente qué niveles nos esperan
+            después de este.
+
+            <br><br>
+
+            Pero sí sé con quién quiero seguir jugando.
+
+        </p>
+
+
+        <p>
+
+            Gracias por existir en mi historia.
+
+        </p>
+
+
+        <div class="signature">
+
+            — Alejo
+
+            <br><br>
+
+            ♥ SAVE COMPLETE
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentScene = "intro";
+
+const scenes = [
+
+    "intro",
+    "undertale",
+    "deltarune",
+    "flowers",
+    "resident",
+    "save",
+    "final"
+
+];
+
+
+/* =========================================================
+   SCENE SYSTEM
+========================================================= */
+
+function goToScene(sceneId) {
+
+    const current =
+        document.getElementById(currentScene);
+
+    const next =
+        document.getElementById(sceneId);
+
+
+    if (!next) {
+
+        console.error(
+            "No existe la escena:",
+            sceneId
+        );
+
+        return;
+
+    }
+
+
+    if (current) {
+
+        current.classList.remove("active");
+
+    }
+
+
+    setTimeout(() => {
+
+        next.classList.add("active");
+
+        currentScene = sceneId;
+
+        window.scrollTo(0, 0);
+
+        triggerFlash();
+
+    }, 100);
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+function startExperience() {
+
+    console.log(
+        "START funcionando"
+    );
+
+
+    const button =
+        document.getElementById(
+            "startButton"
+        );
+
+
+    if (button) {
+
+        button.disabled = true;
+
+        button.textContent =
+            "LOADING...";
+
+    }
+
+
+    triggerFlash();
+
+
+    setTimeout(() => {
+
+        goToScene(
+            "undertale"
+        );
+
+        startTypewriter();
+
+    }, 500);
+
+}
+
+
+/* =========================================================
+   FLASH
+========================================================= */
+
+function triggerFlash() {
+
+    const flash =
+        document.getElementById(
+            "flash"
+        );
+
+
+    if (!flash) return;
+
+
+    flash.classList.remove(
+        "active"
+    );
+
+
+    void flash.offsetWidth;
+
+
+    flash.classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================================================
+   TYPEWRITER
+========================================================= */
+
+const dialogueText = `Hace mucho tiempo...
+
+en un mundo donde las decisiones dejan huella,
+
+donde algunos caminos pueden cambiarlo todo,
+
+y donde incluso un pequeño corazón
+
+puede tener el poder de alterar el destino...
+
+apareciste tú.
+
+Y, de alguna manera,
+
+mi historia empezó a sentirse diferente.
+
+No porque hayas cambiado mi camino.
+
+Sino porque, desde que llegaste,
+
+quiero recorrerlo contigo.
+
+No necesito que nuestra historia
+
+sea perfecta.
+
+No necesito conocer el final.
+
+Solo quiero seguir descubriendo
+
+cada pequeño momento que nos queda.
+
+Cada conversación.
+
+Cada risa.
+
+Cada noche hablando de cualquier cosa.
+
+Cada recuerdo que, sin darnos cuenta,
+
+termina convirtiéndose en algo importante.
+
+Porque quizá eso sea lo más bonito
+
+de tener un corazón:
+
+que no necesita saber qué ocurrirá después
+
+para decidir qué quiere cuidar ahora.
+
+Y si algún día pudiera guardar
+
+un solo momento de nuestra historia
+
+para volver a él una y otra vez...
+
+elegiría uno de nosotros.
+
+Tú y yo.
+
+Justo aquí.
+
+Porque entre todos los caminos posibles,
+
+entre todas las decisiones que pudieron ocurrir,
+
+entre todos los finales que todavía no conocemos...
+
+me alegra muchísimo
+
+que nuestras historias
+
+se hayan encontrado.`;
+
+let typewriterStarted = false;
+
+
+function startTypewriter() {
+
+    if (typewriterStarted)
+        return;
+
+
+    typewriterStarted = true;
+
+
+    const element =
+        document.getElementById(
+            "undertaleText"
+        );
+
+
+    if (!element)
+        return;
+
+
+    element.innerHTML = "";
+
+
+    let index = 0;
+
+
+    const cursor =
+        document.createElement(
+            "span"
+        );
+
+
+    cursor.className =
+        "cursor";
+
+
+    function write() {
+
+        if (
+            index <
+            dialogueText.length
+        ) {
+
+            element.insertBefore(
+
+                document.createTextNode(
+                    dialogueText[index]
+                ),
+
+                cursor
+
+            );
+
+
+            index++;
+
+
+            let delay = 25;
+
+
+            if (
+
+                dialogueText[
+                    index - 1
+                ] === "." ||
+
+                dialogueText[
+                    index - 1
+                ] === "\n"
+
+            ) {
+
+                delay = 120;
+
+            }
+
+
+            setTimeout(
+                write,
+                delay
+            );
+
+        }
+
+    }
+
+
+    element.appendChild(
+        cursor
+    );
+
+
+    write();
+
+
+    /* INICIAR MINIJUEGO */
+
+    setTimeout(() => {
+
+        startBattle();
+
+    }, 1200);
+
+}
+
+
+/* =========================================================
+   UNDERTALE MINI GAME
+========================================================= */
+
+const battleArea =
+    document.getElementById(
+        "battleArea"
+    );
+
+const battleHeart =
+    document.getElementById(
+        "battleHeart"
+    );
+
+const battleMessage =
+    document.getElementById(
+        "battleMessage"
+    );
+
+
+let heartX = 250;
+
+let heartY = 130;
+
+let battleRunning = false;
+
+let battleFinished = false;
+
+let battleStartTime = 0;
+
+const keys = {};
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        keys[
+            event.key.toLowerCase()
+        ] = true;
+
+
+        if (
+
+            [
+                "arrowup",
+                "arrowdown",
+                "arrowleft",
+                "arrowright",
+                " "
+            ].includes(
+                event.key.toLowerCase()
+            )
+
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keyup",
+    (event) => {
+
+        keys[
+            event.key.toLowerCase()
+        ] = false;
+
+    }
+);
+
+
+/* =========================================================
+   START BATTLE
+========================================================= */
+
+function startBattle() {
+
+    if (
+        battleRunning ||
+        battleFinished
+    ) {
+
+        return;
+
+    }
+
+
+    if (!battleArea ||
+        !battleHeart) {
+
+        return;
+
+    }
+
+
+    battleRunning = true;
+
+    battleStartTime =
+        performance.now();
+
+
+    heartX =
+        battleArea.clientWidth / 2;
+
+    heartY =
+        battleArea.clientHeight / 2;
+
+
+    battleHeart.style.left =
+        heartX + "px";
+
+
+    battleHeart.style.top =
+        heartY + "px";
+
+
+    battleMessage.textContent =
+        "♥ Sobrevive durante 12 segundos...";
+
+
+    battleLoop();
+
+    createBattleProjectile();
+
+}
+
+
+/* =========================================================
+   BATTLE LOOP
+========================================================= */
+
+function battleLoop() {
+
+    if (!battleRunning) {
+
+        return;
+
+    }
+
+
+    const speed = 3;
+
+
+    if (
+        keys["arrowleft"] ||
+        keys["a"]
+    ) {
+
+        heartX -= speed;
+
+    }
+
+
+    if (
+        keys["arrowright"] ||
+        keys["d"]
+    ) {
+
+        heartX += speed;
+
+    }
+
+
+    if (
+        keys["arrowup"] ||
+        keys["w"]
+    ) {
+
+        heartY -= speed;
+
+    }
+
+
+    if (
+        keys["arrowdown"] ||
+        keys["s"]
+    ) {
+
+        heartY += speed;
+
+    }
+
+
+    const heartSize = 18;
+
+
+    const maxX =
+        battleArea.clientWidth -
+        heartSize;
+
+
+    const maxY =
+        battleArea.clientHeight -
+        heartSize;
+
+
+    heartX =
+        Math.max(
+            0,
+            Math.min(
+                heartX,
+                maxX
+            )
+        );
+
+
+    heartY =
+        Math.max(
+            0,
+            Math.min(
+                heartY,
+                maxY
+            )
+        );
+
+
+    battleHeart.style.left =
+        heartX + "px";
+
+
+    battleHeart.style.top =
+        heartY + "px";
+
+
+    const elapsed =
+        performance.now() -
+        battleStartTime;
+
+
+    if (
+        elapsed >= 12000
+    ) {
+
+        finishBattle();
+
+        return;
+
+    }
+
+
+    requestAnimationFrame(
+        battleLoop
+    );
+
+}
+
+
+/* =========================================================
+   CREATE PROJECTILE
+========================================================= */
+
+function createBattleProjectile() {
+
+    if (!battleRunning) {
+
+        return;
+
+    }
+
+
+    const projectile =
+        document.createElement(
+            "div"
+        );
+
+
+    projectile.className =
+        "battle-projectile";
+
+
+    const side =
+        Math.floor(
+            Math.random() * 4
+        );
+
+
+    let x;
+    let y;
+
+    let velocityX;
+    let velocityY;
+
+
+    if (side === 0) {
+
+        x =
+            Math.random() *
+            battleArea.clientWidth;
+
+        y = -20;
+
+
+        velocityX =
+            (Math.random() - .5) *
+            1.5;
+
+
+        velocityY =
+            2 +
+            Math.random() * 2;
+
+    }
+
+
+    else if (side === 1) {
+
+        x =
+            battleArea.clientWidth +
+            20;
+
+
+        y =
+            Math.random() *
+            battleArea.clientHeight;
+
+
+        velocityX =
+            -(2 +
+            Math.random() * 2);
+
+
+        velocityY =
+            (Math.random() - .5) *
+            1.5;
+
+    }
+
+
+    else if (side === 2) {
+
+        x =
+            Math.random() *
+            battleArea.clientWidth;
+
+
+        y =
+            battleArea.clientHeight +
+            20;
+
+
+        velocityX =
+            (Math.random() - .5) *
+            1.5;
+
+
+        velocityY =
+            -(2 +
+            Math.random() * 2);
+
+    }
+
+
+    else {
+
+        x = -20;
+
+
+        y =
+            Math.random() *
+            battleArea.clientHeight;
+
+
+        velocityX =
+            2 +
+            Math.random() * 2;
+
+
+        velocityY =
+            (Math.random() - .5) *
+            1.5;
+
+    }
+
+
+    projectile.style.left =
+        x + "px";
+
+
+    projectile.style.top =
+        y + "px";
+
+
+    battleArea.appendChild(
+        projectile
+    );
+
+
+    function moveProjectile() {
+
+        if (
+
+            !battleRunning ||
+            !projectile.isConnected
+
+        ) {
+
+            projectile.remove();
+
+            return;
+
+        }
+
+
+        x += velocityX;
+
+        y += velocityY;
+
+
+        projectile.style.left =
+            x + "px";
+
+
+        projectile.style.top =
+            y + "px";
+
+
+        if (
+            checkCollision(
+                x,
+                y
+            )
+        ) {
+
+            projectile.remove();
+
+            hitPlayer();
+
+            return;
+
+        }
+
+
+        if (
+
+            x < -40 ||
+
+            x >
+                battleArea.clientWidth +
+                40 ||
+
+            y < -40 ||
+
+            y >
+                battleArea.clientHeight +
+                40
+
+        ) {
+
+            projectile.remove();
+
+            return;
+
+        }
+
+
+        requestAnimationFrame(
+            moveProjectile
+        );
+
+    }
+
+
+    moveProjectile();
+
+
+    setTimeout(
+
+        createBattleProjectile,
+
+        350 +
+        Math.random() * 500
+
+    );
+
+}
+
+
+/* =========================================================
+   COLLISION
+========================================================= */
+
+function checkCollision(
+    projectileX,
+    projectileY
+) {
+
+    const heartSize = 18;
+
+    const projectileSize = 12;
+
+
+    return (
+
+        projectileX <
+            heartX +
+            heartSize &&
+
+        projectileX +
+            projectileSize >
+            heartX &&
+
+        projectileY <
+            heartY +
+            heartSize &&
+
+        projectileY +
+            projectileSize >
+            heartY
+
+    );
+
+}
+
+
+/* =========================================================
+   PLAYER HIT
+========================================================= */
+
+function hitPlayer() {
+
+    battleArea.classList.remove(
+        "battle-damage"
+    );
+
+
+    void battleArea.offsetWidth;
+
+
+    battleArea.classList.add(
+        "battle-damage"
+    );
+
+
+    battleMessage.textContent =
+        "♥ Cuidado...";
+
+
+    setTimeout(() => {
+
+        if (battleRunning) {
+
+            battleMessage.textContent =
+                "♥ Sigue resistiendo...";
+
+        }
+
+    }, 500);
+
+}
+
+
+/* =========================================================
+   FINISH BATTLE
+========================================================= */
+
+function finishBattle() {
+
+    battleRunning = false;
+
+    battleFinished = true;
+
+
+    battleMessage.innerHTML =
+
+        '<span class="battle-success">' +
+
+        "♥ Corazón protegido. Puedes continuar." +
+
+        "</span>";
+
+
+    const projectiles =
+        document.querySelectorAll(
+            ".battle-projectile"
+        );
+
+
+    projectiles.forEach(
+        projectile =>
+            projectile.remove()
+    );
+
+}
+
+
+/* =========================================================
+   PURPLE PARTICLES
+========================================================= */
+
+function createPurpleParticles() {
+
+    const container =
+        document.getElementById(
+            "purpleParticles"
+        );
+
+
+    if (!container)
+        return;
+
+
+    for (
+        let i = 0;
+        i < 25;
+        i++
+    ) {
+
+        const orb =
+            document.createElement(
+                "div"
+            );
+
+
+        orb.className =
+            "purple-orb";
+
+
+        orb.style.left =
+            Math.random() *
+            100 +
+            "%";
+
+
+        orb.style.animationDuration =
+
+            4 +
+            Math.random() * 8 +
+            "s";
+
+
+        orb.style.animationDelay =
+
+            Math.random() * 5 +
+            "s";
+
+
+        orb.style.width =
+
+            3 +
+            Math.random() * 8 +
+            "px";
+
+
+        orb.style.height =
+            orb.style.width;
+
+
+        container.appendChild(
+            orb
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RESIDENT EVIL
+========================================================= */
+
+function activateDanger() {
+
+    const resident =
+        document.getElementById(
+            "resident"
+        );
+
+
+    resident.classList.add(
+        "danger"
+    );
+
+
+    triggerFlash();
+
+
+    setTimeout(() => {
+
+        resident.classList.remove(
+            "danger"
+        );
+
+
+        goToScene(
+            "save"
+        );
+
+    }, 1000);
+
+}
+
+
+/* =========================================================
+   SAVE YES
+========================================================= */
+
+function saveYes() {
+
+    triggerFlash();
+
+    createSaveExplosion();
+
+
+    setTimeout(() => {
+
+        goToScene(
+            "final"
+        );
+
+    }, 800);
+
+}
+
+
+/* =========================================================
+   NO BUTTON
+========================================================= */
+
+function moveNoButton() {
+
+    const button =
+        document.getElementById(
+            "noButton"
+        );
+
+
+    if (!button)
+        return;
+
+
+    const maxX =
+        window.innerWidth -
+        button.offsetWidth -
+        30;
+
+
+    const maxY =
+        window.innerHeight -
+        button.offsetHeight -
+        30;
+
+
+    const x =
+        Math.random() *
+        Math.max(50, maxX);
+
+
+    const y =
+        Math.random() *
+        Math.max(50, maxY);
+
+
+    button.style.position =
+        "fixed";
+
+
+    button.style.left =
+        x + "px";
+
+
+    button.style.top =
+        y + "px";
+
+}
+
+
+/* =========================================================
+   SAVE EXPLOSION
+========================================================= */
+
+function createSaveExplosion() {
+
+    for (
+        let i = 0;
+        i < 80;
+        i++
+    ) {
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.style.position =
+            "fixed";
+
+
+        particle.style.width =
+            "5px";
+
+
+        particle.style.height =
+            "5px";
+
+
+        particle.style.background =
+            "#65ff9a";
+
+
+        particle.style.borderRadius =
+            "50%";
+
+
+        particle.style.left =
+            "50%";
+
+
+        particle.style.top =
+            "50%";
+
+
+        particle.style.zIndex =
+            "2000";
+
+
+        particle.style.boxShadow =
+            "0 0 10px #65ff9a";
+
+
+        document.body.appendChild(
+            particle
+        );
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const distance =
+            100 +
+            Math.random() *
+            500;
+
+
+        const x =
+            Math.cos(angle) *
+            distance;
+
+
+        const y =
+            Math.sin(angle) *
+            distance;
+
+
+        particle.animate(
+
+            [
+
+                {
+
+                    transform:
+                        "translate(-50%,-50%) scale(1)",
+
+                    opacity: 1
+
+                },
+
+                {
+
+                    transform:
+
+                        `translate(
+                            calc(-50% + ${x}px),
+                            calc(-50% + ${y}px)
+                        ) scale(0)`,
+
+                    opacity: 0
+
+                }
+
+            ],
+
+            {
+
+                duration:
+                    700 +
+                    Math.random() *
+                    600,
+
+                easing:
+                    "cubic-bezier(.1,.8,.2,1)"
+
+            }
+
+        );
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 1500);
+
+    }
+
+}
+
+
+/* =========================================================
+   PARTICLE ENGINE
+========================================================= */
+
+const canvas =
+    document.getElementById(
+        "particles"
+    );
+
+
+const ctx =
+    canvas.getContext(
+        "2d"
+    );
+
+
+let particles = [];
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+resizeCanvas();
+
+
+function createParticle() {
+
+    return {
+
+        x:
+            Math.random() *
+            canvas.width,
+
+        y:
+            Math.random() *
+            canvas.height,
+
+        size:
+            Math.random() *
+            1.8 +
+            .3,
+
+        speed:
+            Math.random() *
+            .5 +
+            .1,
+
+        alpha:
+            Math.random() *
+            .6 +
+            .2
+
+    };
+
+}
+
+
+for (
+    let i = 0;
+    i < 100;
+    i++
+) {
+
+    particles.push(
+        createParticle()
+    );
+
+}
+
+
+function animateParticles() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    for (
+        const p of particles
+    ) {
+
+        p.y -= p.speed;
+
+
+        if (
+            p.y < -5
+        ) {
+
+            p.y =
+                canvas.height +
+                5;
+
+
+            p.x =
+                Math.random() *
+                canvas.width;
+
+        }
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI * 2
+
+        );
+
+
+        ctx.fillStyle =
+            `rgba(
+                255,
+                255,
+                255,
+                ${p.alpha}
+            )`;
+
+
+        ctx.fill();
+
+    }
+
+
+    requestAnimationFrame(
+        animateParticles
+    );
+
+}
+
+
+animateParticles();
+
+
+/* =========================================================
+   MOUSE PARALLAX
+========================================================= */
+
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        const x =
+
+            (
+                event.clientX /
+                window.innerWidth -
+                .5
+            ) * 2;
+
+
+        const y =
+
+            (
+                event.clientY /
+                window.innerHeight -
+                .5
+            ) * 2;
+
+
+        const active =
+
+            document.querySelector(
+
+                ".scene.active .content, " +
+                ".scene.active .intro-content"
+
+            );
+
+
+        if (!active)
+            return;
+
+
+        active.style.transform =
+
+            `translate(
+                ${x * 5}px,
+                ${y * 5}px
+            )`;
+
+    }
+);
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            if (
+                currentScene ===
+                "intro"
+            ) {
+
+                startExperience();
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+createPurpleParticles();
+
+
+console.log(
+
+    "%cALEJO & ALLISON",
+
+    "color:#ff6fae;font-size:25px;font-weight:bold"
+
+);
+
+
+console.log(
+
+    "%cSistema iniciado correctamente.",
+
+    "color:#65ff9a;font-size:15px"
+
+);
+
+</script>
+
+</body>
+
+</html>
